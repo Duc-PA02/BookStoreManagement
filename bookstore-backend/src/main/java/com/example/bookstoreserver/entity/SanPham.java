@@ -23,6 +23,8 @@ public class SanPham extends BaseEntity{
     private double giaBan;
     @Column(name = "mo_ta")
     private String moTa;
+    @Column(name = "img_hero")
+    private String imgHero;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "hoadon_id", foreignKey = @ForeignKey(name = "fk_sanpham_hoadon"))
@@ -30,7 +32,7 @@ public class SanPham extends BaseEntity{
     private HoaDon hoaDon;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "loaisp_id", foreignKey = @ForeignKey(name = "fk_sanpham_danhmucsp"))
+    @JoinColumn(name = "danhmucsp_id", foreignKey = @ForeignKey(name = "fk_sanpham_danhmucsp"))
     @JsonBackReference
     private DanhMucSanPham danhMucSanPham;
 
