@@ -1,5 +1,7 @@
 package com.example.bookstoreserver.service.nguoidung;
 
+import com.example.bookstoreserver.component.JwtTokenUtils;
+import com.example.bookstoreserver.dtos.LoginDTO;
 import com.example.bookstoreserver.dtos.NguoiDungDTO;
 import com.example.bookstoreserver.entity.NguoiDung;
 import com.example.bookstoreserver.entity.Role;
@@ -13,8 +15,17 @@ import com.example.bookstoreserver.responses.nguoidung.LoginRequest;
 import com.example.bookstoreserver.service.email.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,9 +35,40 @@ public class NguoiDungService implements INguoiDungService{
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
     private final EmailService emailService;
+    private final JwtTokenUtils jwtTokenUtils;
+    private final UserDetailsService userDetailsService;
     @Override
-    public String login(LoginRequest loginRequest) throws Exception {
-        return null;
+    public LoginDTO login(LoginRequest loginRequest) throws Exception {
+        Optional<NguoiDung> nguoiDungOptional = nguoiDungRepository.findByEmail(loginRequest.getEmail());
+        if (nguoiDungOptional.isEmpty()){
+            throw new DataNotFoundException("Nguoi dung khong ton tai");
+        }
+        NguoiDung nguoiDung = nguoiDungOptional.get();
+        if (!passwordEncoder.matches(loginRequest.getMatKhau(), nguoiDung.getMatKhau())){
+            throw new BadCredentialsException("Mat khau khong chinh xac");
+        }
+        //Chuyền email,password, role vào authenticationToken để xac thực ngươi dùng
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                loginRequest.getEmail(),
+                loginRequest.getMatKhau(),
+                nguoiDung.getAuthorities()
+        );
+        //Xác thực người dùng
+        authenticationManager.authenticate(authenticationToken);
+        // Tạo danh sách vai trò từ đối tượng NguoiDung
+        List<String> roles = nguoiDung.getAuthorities().stream()
+                .map(authority -> authority.getAuthority())
+                .collect(Collectors.toList());
+
+        String token = jwtTokenUtils.generateToken(nguoiDung);
+
+        LoginDTO loginDTO = LoginDTO.builder()
+                .email(loginRequest.getEmail())
+                .matKhau(loginRequest.getMatKhau())
+                .role(roles)
+                .token(token)
+                .build();
+        return loginDTO;
     }
 
     @Override

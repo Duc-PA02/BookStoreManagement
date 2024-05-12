@@ -12,6 +12,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class SanPhamDTO {
     @JsonProperty("ten_san_pham")
     private String tenSanPham;
@@ -24,7 +25,7 @@ public class SanPhamDTO {
     @JsonProperty("img_hero")
     private String imgHero;
     @JsonProperty("hoadon_id")
-    private Long hoaDonId;
+    private int hoaDonId;
     @JsonProperty("danhmucsp_id")
-    private Long danhMucSanPhamId;
+    private int danhMucSanPhamId;
 }

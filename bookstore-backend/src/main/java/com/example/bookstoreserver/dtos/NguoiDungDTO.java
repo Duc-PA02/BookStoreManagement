@@ -27,6 +27,6 @@ public class NguoiDungDTO {
     private Date ngaySinh;
     @JsonProperty("so_dien_thoai")
     private String soDienThoai;
-    @JsonProperty("role_id")
-    private Long roleId;
+//    @JsonProperty("role_id")
+//    private Long roleId;
 }

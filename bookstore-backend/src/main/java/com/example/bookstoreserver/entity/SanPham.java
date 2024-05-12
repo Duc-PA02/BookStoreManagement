@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -25,6 +26,10 @@ public class SanPham extends BaseEntity{
     private String moTa;
     @Column(name = "img_hero")
     private String imgHero;
+    @Column(name = "ngay_tao")
+    private LocalDate ngayTao;
+    @Column(name = "ngay_cap_nhat")
+    private LocalDate ngayCapNhat;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "hoadon_id", foreignKey = @ForeignKey(name = "fk_sanpham_hoadon"))

@@ -55,19 +55,19 @@ public class NguoiDung extends BaseEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> authorityList=  new ArrayList<>();
+        List<SimpleGrantedAuthority> authorityList =  new ArrayList<>();
         authorityList.add(new SimpleGrantedAuthority("ROLE_" + getRole().getName().toUpperCase()));
         return authorityList;
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return matKhau;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
 
     @Override

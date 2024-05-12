@@ -2,6 +2,7 @@ package com.example.bookstoreserver.config;
 
 import com.example.bookstoreserver.filter.JwtTokenFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,18 +17,21 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 public class WebSecurityConfig {
     private final JwtTokenFilter jwtTokenFilter;
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(request -> {
                     request
                             .requestMatchers(
-                                    String.format("%s/users/register"),
-                                    String.format("%s/users/login")
+                                    String.format("nguoidung/register"),
+                                    String.format("nguoidung/login"),
+                                    String.format("sanpham/all-sanpham")
                             ).permitAll()
                             .anyRequest().authenticated();
                         })
                 .csrf(AbstractHttpConfigurer::disable);
+
         return http.build();
     }
 }
