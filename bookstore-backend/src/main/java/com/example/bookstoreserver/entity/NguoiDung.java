@@ -8,10 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "nguoidung")
@@ -20,6 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class NguoiDung extends BaseEntity implements UserDetails {
     @Column(name = "email")
     private String email;
@@ -50,6 +48,10 @@ public class NguoiDung extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "nguoiDung")
     @JsonManagedReference
     private List<PhieuNhap> danhSachPhieuNhap;
+
+    @OneToMany(mappedBy = "nguoiDung" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<Email> danhSachEmail;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

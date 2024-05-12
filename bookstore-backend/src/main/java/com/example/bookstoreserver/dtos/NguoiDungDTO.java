@@ -17,6 +17,8 @@ public class NguoiDungDTO {
     private String email;
     @JsonProperty("mat_khau")
     private String matKhau;
+    @JsonProperty("nhap_lai_mat_khau")
+    private String nhapLaiMatKhau;
     @JsonProperty("ho_ten")
     private String hoTen;
     @JsonProperty("dia_chi")
