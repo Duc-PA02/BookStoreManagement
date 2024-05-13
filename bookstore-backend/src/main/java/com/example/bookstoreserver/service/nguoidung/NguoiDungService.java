@@ -100,6 +100,7 @@ public class NguoiDungService implements INguoiDungService{
         String matkhau = nguoiDungDTO.getMatKhau();
         String encodeMatKhau = passwordEncoder.encode(matkhau);
         nguoiDungMoi.setMatKhau(encodeMatKhau);
+        nguoiDungRepository.save(nguoiDungMoi);
     }
 
     @Override

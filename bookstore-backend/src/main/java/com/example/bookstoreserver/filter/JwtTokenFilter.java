@@ -25,6 +25,7 @@ import java.util.List;
 public class JwtTokenFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
     private final JwtTokenUtils jwtTokenUtils;
+
     @Override
     protected void doFilterInternal(@Nonnull HttpServletRequest request,
                                     @Nonnull HttpServletResponse response,
@@ -66,8 +67,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         final List<Pair<String, String>> bypassTokens = Arrays.asList(
                 Pair.of("nguoidung/register", "POST"),
                 Pair.of("nguoidung/login", "POST"),
-                Pair.of("nguoidung/confirm-register", "POST")
-
+                Pair.of("nguoidung/confirm-register", "POST"),
+                Pair.of("sanpham/all-sanpham", "GET")
         );
         for (Pair<String, String> bypassToken : bypassTokens){
             if (request.getServletPath().contains(bypassToken.getLeft()) && request.getMethod().equals(bypassToken.getRight())){
