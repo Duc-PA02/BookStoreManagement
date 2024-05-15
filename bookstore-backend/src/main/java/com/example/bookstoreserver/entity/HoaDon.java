@@ -25,6 +25,9 @@ public class HoaDon extends BaseEntity{
     @Column(name = "loai_thanh_toan")
     private String loaiThanhToan;
 
+    @Column(name = "trang_thai")
+    private Boolean trangThai; //thuộc về admin
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "nguoidung_id", foreignKey = @ForeignKey(name = "fk_hoadon_nguoidung"))
     @JsonBackReference

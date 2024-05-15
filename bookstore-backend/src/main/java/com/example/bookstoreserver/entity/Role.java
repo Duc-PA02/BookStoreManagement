@@ -25,6 +25,6 @@ public class Role extends BaseEntity{
     private List<NguoiDung> danhSachNguoiDung;
 
 
-    public static String ADMIN = "ADMIN";
-    public static String USER = "USER";
+    public static String QUANLY = "QUANLY";
+    public static String NHANVIEN = "NHANVIEN";
 }

@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Data
 @Getter
 @Setter
@@ -24,8 +26,12 @@ public class SanPhamDTO {
     private String moTa;
     @JsonProperty("img_hero")
     private String imgHero;
+    @JsonProperty("ngay_tao")
+    private LocalDate ngayTao;
+    @JsonProperty("ngay_cap_nhat")
+    private LocalDate ngayCapNhat;
     @JsonProperty("hoadon_id")
-    private int hoaDonId;
+    private Long hoaDonId;
     @JsonProperty("danhmucsp_id")
-    private int danhMucSanPhamId;
+    private Long danhMucSanPhamId;
 }

@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 
 public interface ISanPhamService {
     SanPham createSanPham(SanPhamDTO sanPhamDTO) throws Exception;
-    SanPham updateSanPham(int id, SanPhamDTO sanPhamDTO) throws Exception;
-    void deleteSanPham(int id);
+    SanPham updateSanPham(Long id, SanPhamDTO sanPhamDTO) throws Exception;
+    void deleteSanPham(Long id);
     Page<SanPhamResponse> getAllSanPhams(PageRequest pageRequest);
 }

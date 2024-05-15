@@ -1,5 +1,6 @@
 package com.example.bookstoreserver.config;
 
+import com.example.bookstoreserver.entity.Role;
 import com.example.bookstoreserver.filter.JwtTokenFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +40,9 @@ public class WebSecurityConfig {
                             ).permitAll()
 
                             .requestMatchers(HttpMethod.GET, "/sanpham/all-sanpham").permitAll()
+                            .requestMatchers(HttpMethod.POST, "sanpham").hasRole(Role.QUANLY)
+                            .requestMatchers(HttpMethod.PUT,"sanpham").hasRole(Role.QUANLY)
+                            .requestMatchers(HttpMethod.DELETE,"sanpham").hasRole(Role.QUANLY)
 
                             .anyRequest().authenticated();
                         })

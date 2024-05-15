@@ -87,7 +87,7 @@ public class NguoiDungService implements INguoiDungService{
         if (nguoiDungRepository.existsByEmail(email)){
             throw new Exception("email da ton tai");
         }
-        Role role = roleRepository.findById(3L).orElseThrow(()->new IllegalStateException("Khong tim thay role"));
+        Role role = roleRepository.findById(2L).orElseThrow(()->new IllegalStateException("Khong tim thay role"));
         NguoiDung nguoiDungMoi = NguoiDung.builder()
                 .email(nguoiDungDTO.getEmail())
                 .matKhau(nguoiDungDTO.getMatKhau())
