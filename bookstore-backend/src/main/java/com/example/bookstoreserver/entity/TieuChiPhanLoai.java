@@ -18,7 +18,7 @@ public class TieuChiPhanLoai extends BaseEntity{
     @Column(name = "ten_the_loai")
     private String tenTheLoai;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "loaisp_id", foreignKey = @ForeignKey(name = "fk_theloai_loaisp"))
     @JsonBackReference
     private DanhMucSanPham danhMucSanPham;

@@ -36,7 +36,6 @@ public class NguoiDungService implements INguoiDungService{
     private final RoleRepository roleRepository;
     private final EmailService emailService;
     private final JwtTokenUtils jwtTokenUtils;
-    private final UserDetailsService userDetailsService;
     @Override
     public LoginDTO login(LoginRequest loginRequest) throws Exception {
         Optional<NguoiDung> nguoiDungOptional = nguoiDungRepository.findByEmail(loginRequest.getEmail());
@@ -96,6 +95,7 @@ public class NguoiDungService implements INguoiDungService{
                 .soDienThoai(nguoiDungDTO.getSoDienThoai())
                 .ngaySinh(nguoiDungDTO.getNgaySinh())
                 .role(role)
+                .email(email)
                 .build();
         String matkhau = nguoiDungDTO.getMatKhau();
         String encodeMatKhau = passwordEncoder.encode(matkhau);

@@ -17,8 +17,8 @@ public class NguoiDungDTO {
     private String email;
     @JsonProperty("mat_khau")
     private String matKhau;
-    @JsonProperty("nhap_lai_mat_khau")
-    private String nhapLaiMatKhau;
+    @JsonProperty("retype_password")
+    private String retypePassword;
     @JsonProperty("ho_ten")
     private String hoTen;
     @JsonProperty("dia_chi")

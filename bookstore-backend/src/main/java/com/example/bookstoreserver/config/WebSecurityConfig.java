@@ -2,6 +2,7 @@ package com.example.bookstoreserver.config;
 
 import com.example.bookstoreserver.entity.Role;
 import com.example.bookstoreserver.filter.JwtTokenFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

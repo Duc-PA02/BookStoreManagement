@@ -1,5 +1,6 @@
 package com.example.bookstoreserver.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,6 +26,6 @@ public class Email extends BaseEntity{
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "nguoidung_id", foreignKey = @ForeignKey(name = "fk_Email_NguoiDung"))
-    @JsonManagedReference
+    @JsonBackReference
     private NguoiDung nguoiDung;
 }

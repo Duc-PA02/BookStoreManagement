@@ -50,7 +50,7 @@ public class NguoiDung extends BaseEntity implements UserDetails {
     private List<PhieuNhap> danhSachPhieuNhap;
 
     @OneToMany(mappedBy = "nguoiDung" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonManagedReference
     private List<Email> danhSachEmail;
 
     @Override

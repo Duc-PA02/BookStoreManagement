@@ -38,7 +38,7 @@ public class SanPham extends BaseEntity{
     @JsonBackReference
     private HoaDon hoaDon;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "danhmucsp_id", foreignKey = @ForeignKey(name = "fk_sanpham_danhmucsp"))
     @JsonBackReference
     private DanhMucSanPham danhMucSanPham;

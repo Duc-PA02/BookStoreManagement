@@ -22,6 +22,7 @@ public class NguoiDungController {
     private final NguoiDungService nguoiDungService;
     private final EmailService emailService;
     private final EmailRepository emailRepository;
+
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody NguoiDungDTO nguoiDungDTO) throws Exception{
         try {

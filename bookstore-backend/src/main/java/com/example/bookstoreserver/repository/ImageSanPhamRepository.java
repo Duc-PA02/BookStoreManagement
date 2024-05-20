@@ -1,11 +1,9 @@
 package com.example.bookstoreserver.repository;
 
-import com.example.bookstoreserver.entity.DanhMucSanPham;
+import com.example.bookstoreserver.entity.ImageSanPham;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface DanhMucSanPhamRepository extends JpaRepository<DanhMucSanPham, Long> {
+public interface ImageSanPhamRepository extends JpaRepository<ImageSanPham, Long> {
 }
