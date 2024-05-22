@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class PhieuNhap extends BaseEntity{
     @Column(name = "ten_san_pham")
     private String tenSanPham;
@@ -30,7 +32,8 @@ public class PhieuNhap extends BaseEntity{
     @JsonBackReference
     private NguoiDung nguoiDung;
 
-    @OneToMany(mappedBy = "phieuNhap")
-    @JsonManagedReference
-    private List<NhaCungCap> danhSachNhaCungCap;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "nhacungcap_id", foreignKey = @ForeignKey(name = "fk_phieunhap_nhacungcap"))
+    @JsonBackReference
+    private NhaCungCap nhaCungCap;
 }

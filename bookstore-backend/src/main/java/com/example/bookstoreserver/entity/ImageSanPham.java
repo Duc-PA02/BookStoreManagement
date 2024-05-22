@@ -3,6 +3,7 @@ package com.example.bookstoreserver.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +12,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ImageSanPham extends BaseEntity{
+    public static final int MAXIMUM_IMAGES_PER_PRODUCT = 5;
     @Column(name = "image_url")
     private String imageUrl;
 

@@ -1,7 +1,9 @@
 package com.example.bookstoreserver.controller;
 
 import com.example.bookstoreserver.dtos.SanPhamDTO;
+import com.example.bookstoreserver.dtos.TieuChiPhanLoaiDTO;
 import com.example.bookstoreserver.entity.SanPham;
+import com.example.bookstoreserver.exceptions.DataNotFoundException;
 import com.example.bookstoreserver.responses.sanpham.SanPhamListResponse;
 import com.example.bookstoreserver.responses.sanpham.SanPhamResponse;
 import com.example.bookstoreserver.service.sanpham.SanPhamService;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +22,12 @@ import java.util.List;
 @RequestMapping("sanpham")
 public class SanPhamController {
     private final SanPhamService sanPhamService;
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('QUANLY')")
+    public ResponseEntity<?> getSanPhamById(@PathVariable Long id) throws DataNotFoundException {
+        SanPham sanPham = sanPhamService.getSanPhamById(id);
+        return ResponseEntity.ok().body(sanPham);
+    }
     @GetMapping("/all-sanpham")
     public ResponseEntity<SanPhamListResponse> getAllSanPhams(
             @RequestParam(defaultValue = "0") int page,
@@ -64,5 +73,10 @@ public class SanPhamController {
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+    @PostMapping("/tim-theo-tieu-chi")
+    public ResponseEntity<List<SanPham>> timSanPhamTheoTieuChiPhanLoai(@RequestBody TieuChiPhanLoaiDTO tieuChiPhanLoaiDTO) {
+        List<SanPham> danhSachSanPham = sanPhamService.timSanPhamTheoTieuChiPhanLoai(tieuChiPhanLoaiDTO);
+        return ResponseEntity.ok(danhSachSanPham);
     }
 }
