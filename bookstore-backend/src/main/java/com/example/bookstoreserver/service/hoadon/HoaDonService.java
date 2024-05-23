@@ -20,23 +20,6 @@ import java.util.List;
 public class HoaDonService implements IHoaDonService{
     private final HoaDonRepository hoaDonRepository;
     private final NguoiDungRepository nguoiDungRepository;
-
-    @Override
-    public List<TongTienBanDuocDTO> getTotalSalesByDay() {
-        return hoaDonRepository.findTotalSalesByDay();
-    }
-
-    @Override
-    public List<TongTienBanDuocThangDTO> getTotalSalesByMonthAndYear(ThongKeRequest request) {
-        // Lấy năm hiện tại nếu không có năm trong request
-        Integer nam = (request.getNam() == null) ? LocalDate.now().getYear() : request.getNam();
-        // Đảm bảo tháng không được để trống
-        if (request.getThang() == null) {
-            throw new IllegalArgumentException("Tháng không được để trống");
-        }
-        return hoaDonRepository.findTotalSalesByMonthAndYear(request.getThang(), nam);
-    }
-
     @Override
     public HoaDon createHoaDon(HoaDonDTO hoaDonDTO) throws Exception {
         NguoiDung nguoiDung = nguoiDungRepository.findById(hoaDonDTO.getNguoiDungId()).orElse(null);
@@ -45,10 +28,11 @@ public class HoaDonService implements IHoaDonService{
         }
         HoaDon hoaDon = HoaDon.builder()
                 .tenHoaDon(hoaDonDTO.getTenHoaDon())
-                .ngayTao(hoaDonDTO.getNgayTao())
+                .ngayTao(LocalDate.now())
                 .loaiThanhToan(hoaDonDTO.getLoaiThanhToan())
                 .tongTien(hoaDonDTO.getTongTien())
                 .trangThai(false)
+                .nguoiDung(nguoiDung)
                 .build();
         return hoaDonRepository.save(hoaDon);
     }

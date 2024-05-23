@@ -1,7 +1,6 @@
 package com.example.bookstoreserver.controller;
 
 import com.example.bookstoreserver.dtos.NhaCungCapDTO;
-import com.example.bookstoreserver.dtos.NhaCungCapThongKeDTO;
 import com.example.bookstoreserver.entity.NhaCungCap;
 import com.example.bookstoreserver.exceptions.DataNotFoundException;
 import com.example.bookstoreserver.service.nhacungcap.NhaCungCapService;
@@ -11,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,8 +19,8 @@ public class NhaCungCapController {
     private final NhaCungCapService nhaCungCapService;
     @GetMapping("/thongke")
     @PreAuthorize("hasRole('QUANLY')")
-    public ResponseEntity<List<NhaCungCapThongKeDTO>> thongKeNhaCungCapTheoSoLuongNhap() {
-        List<NhaCungCapThongKeDTO> thongKeList = nhaCungCapService.thongKeNhaCungCapTheoSoLuongNhap();
+    public ResponseEntity<List<Map<String, Object>>> thongKeNhaCungCapTheoSoLuongNhap() {
+        List<Map<String, Object>> thongKeList = nhaCungCapService.thongKeNhaCungCapTheoSoLuongNhap();
         return ResponseEntity.ok(thongKeList);
     }
     @GetMapping("/nhacungcap/{id}")

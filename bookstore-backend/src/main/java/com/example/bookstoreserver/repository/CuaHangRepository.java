@@ -1,11 +1,9 @@
 package com.example.bookstoreserver.repository;
 
-import com.example.bookstoreserver.entity.KhoHang;
+import com.example.bookstoreserver.entity.CuaHang;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
-public interface KhoHangRepository extends JpaRepository<KhoHang, Long> {
+public interface CuaHangRepository extends JpaRepository<CuaHang, Long> {
 }

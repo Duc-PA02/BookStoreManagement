@@ -18,16 +18,6 @@ import java.util.List;
 @RequestMapping("hoa-don")
 public class HoaDonController {
     private final HoaDonService hoaDonService;
-    @GetMapping("/thongketheongay")
-    @PreAuthorize("hasRole('QUANLY')")
-    public List<TongTienBanDuocDTO> getTotalSalesByDay() {
-        return hoaDonService.getTotalSalesByDay();
-    }
-    @PostMapping("/thongke/thang")
-    @PreAuthorize("hasRole('QUANLY')")
-    public List<TongTienBanDuocThangDTO> getTotalSalesByMonthAndYear(@RequestBody ThongKeRequest request) {
-        return hoaDonService.getTotalSalesByMonthAndYear(request);
-    }
     @PostMapping("/tao-hoa-don")
     @PreAuthorize("hasRole('NHANVIEN')")
     public ResponseEntity<?> createHoaDon(@RequestBody HoaDonDTO hoaDonDTO) throws Exception {

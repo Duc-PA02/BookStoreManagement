@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class HoaDon extends BaseEntity{
     @Column(name = "ten_hoa_don")
     private String tenHoaDon;
     @Column(name = "ngay_tao")
-    private LocalDateTime ngayTao;
+    private LocalDate ngayTao;
     @Column(name = "tong_tien")
     private double tongTien;
     @Column(name = "loai_thanh_toan")

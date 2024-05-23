@@ -1,9 +1,7 @@
 package com.example.bookstoreserver.service.nhacungcap;
 
 import com.example.bookstoreserver.dtos.NhaCungCapDTO;
-import com.example.bookstoreserver.dtos.NhaCungCapThongKeDTO;
 import com.example.bookstoreserver.entity.NhaCungCap;
-import com.example.bookstoreserver.entity.PhieuNhap;
 import com.example.bookstoreserver.exceptions.DataNotFoundException;
 import com.example.bookstoreserver.repository.NhaCungCapRepository;
 import com.example.bookstoreserver.repository.PhieuNhapRepository;
@@ -11,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,8 +20,16 @@ public class NhaCungCapService implements INhaCungCapService{
 
 
     @Override
-    public List<NhaCungCapThongKeDTO> thongKeNhaCungCapTheoSoLuongNhap() {
-        return nhaCungCapRepository.thongKeNhaCungCapTheoSoLuongNhap();
+    public List<Map<String, Object>> thongKeNhaCungCapTheoSoLuongNhap() {
+        List<Object[]> thongke = nhaCungCapRepository.thongKeNhaCungCapTheoSoLuongNhap();
+        // Chuyển đổi kết quả từ Object[] thành Map<String, Object>
+                List<Map<String, Object>> result = thongke.stream()
+                .map(record -> Map.of(
+                        "tenNhaCungCap", record[0],
+                        "soLuongNhap", record[1]
+                ))
+                .collect(Collectors.toList());
+        return result;
     }
 
     @Override

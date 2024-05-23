@@ -8,6 +8,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class ImageSanPhamDTO {
     @JsonProperty("image_url")
     private String imageUrl;

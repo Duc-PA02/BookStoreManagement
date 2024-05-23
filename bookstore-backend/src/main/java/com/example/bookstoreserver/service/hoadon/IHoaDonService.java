@@ -9,8 +9,6 @@ import com.example.bookstoreserver.entity.HoaDon;
 import java.util.List;
 
 public interface IHoaDonService {
-    List<TongTienBanDuocDTO> getTotalSalesByDay();
-    List<TongTienBanDuocThangDTO> getTotalSalesByMonthAndYear(ThongKeRequest thongKeRequest);
     HoaDon createHoaDon(HoaDonDTO hoaDonDTO) throws Exception;
     HoaDon updateHoaDon(Long id, HoaDonDTO hoaDonDTO) throws Exception;
 }

@@ -6,10 +6,7 @@ import com.example.bookstoreserver.service.khohang.KhoHangService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,11 +15,41 @@ import java.util.List;
 @RequestMapping("kho-hang")
 public class KhoHangController {
     private final KhoHangService khoHangService;
+    @GetMapping
+    @PreAuthorize("hasRole('QUANLY')")
+    public ResponseEntity<?> getAllKhoHang(){
+        try {
+            List<KhoHang> khoHang = khoHangService.getAllKhoHang();
+            return ResponseEntity.ok().body(khoHang);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('QUANLY')")
     public ResponseEntity<?> getKhoHangById(@PathVariable Long id){
         try {
             KhoHang khoHang = khoHangService.getKhoHangById(id);
+            return ResponseEntity.ok().body(khoHang);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('QUANLY')")
+    public ResponseEntity<?> deleteKhoHang(@PathVariable Long id){
+        try {
+            String msg = khoHangService.deleteKhoHang(id);
+            return ResponseEntity.ok().body(msg);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @PostMapping
+    @PreAuthorize("hasRole('QUANLY')")
+    public ResponseEntity<?> createKhoHang(@RequestBody KhoHangDTO khoHangDTO){
+        try {
+            KhoHang khoHang = khoHangService.createKhoHang(khoHangDTO);
             return ResponseEntity.ok().body(khoHang);
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());

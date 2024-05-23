@@ -41,7 +41,7 @@ public class WebSecurityConfig {
                             ).permitAll()
 
                             .requestMatchers(HttpMethod.GET, "/sanpham/all-sanpham").permitAll()
-                            .requestMatchers(HttpMethod.POST, "sanpham").hasRole(Role.QUANLY)
+                            .requestMatchers(HttpMethod.POST, "sanpham", "sanpham/tim-theo-tieu-chi").hasRole(Role.QUANLY)
                             .requestMatchers(HttpMethod.PUT,"sanpham").hasRole(Role.QUANLY)
                             .requestMatchers(HttpMethod.DELETE,"sanpham").hasRole(Role.QUANLY)
 
