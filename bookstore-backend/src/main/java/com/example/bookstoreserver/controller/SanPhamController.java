@@ -37,7 +37,6 @@ import java.util.UUID;
 public class SanPhamController {
     private final SanPhamService sanPhamService;
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('QUANLY')")
     public ResponseEntity<?> getSanPhamById(@PathVariable Long id) throws DataNotFoundException {
         SanPham sanPham = sanPhamService.getSanPhamById(id);
         return ResponseEntity.ok().body(sanPham);
@@ -89,11 +88,13 @@ public class SanPhamController {
         }
     }
     @PostMapping("/tim-theo-tieu-chi")
+    @PreAuthorize("hasRole('QUANLY')")
     public ResponseEntity<List<SanPham>> timSanPhamTheoTieuChiPhanLoai(@RequestBody TieuChiPhanLoaiDTO tieuChiPhanLoaiDTO) {
         List<SanPham> danhSachSanPham = sanPhamService.timSanPhamTheoTieuChiPhanLoai(tieuChiPhanLoaiDTO);
         return ResponseEntity.ok(danhSachSanPham);
     }
     @PostMapping(value = "uploads/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("hasRole('QUANLY')")
     public ResponseEntity<?> uploadImages(@PathVariable("id") Long productId, @ModelAttribute("files") List<MultipartFile> files) throws IOException, DataNotFoundException {
         try {
             SanPham sanPham = sanPhamService.getSanPhamById(productId);

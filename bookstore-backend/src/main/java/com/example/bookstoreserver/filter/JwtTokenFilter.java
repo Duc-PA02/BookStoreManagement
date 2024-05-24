@@ -8,7 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.internal.Pair;
+import org.springframework.data.util.Pair;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -68,10 +68,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 Pair.of("nguoidung/register", "POST"),
                 Pair.of("nguoidung/login", "POST"),
                 Pair.of("nguoidung/confirm-register", "POST"),
-                Pair.of("sanpham/all-sanpham", "GET")
+                Pair.of("sanpham/", "GET")
         );
         for (Pair<String, String> bypassToken : bypassTokens){
-            if (request.getServletPath().contains(bypassToken.getLeft()) && request.getMethod().equals(bypassToken.getRight())){
+            if (request.getServletPath().contains(bypassToken.getFirst()) &&
+                    request.getMethod().equals(bypassToken.getSecond())){
                 return true;
             }
         }
