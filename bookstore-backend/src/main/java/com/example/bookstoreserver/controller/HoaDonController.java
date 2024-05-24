@@ -30,4 +30,22 @@ public class HoaDonController {
         HoaDon hoaDon = hoaDonService.updateHoaDon(id, hoaDonDTO);
         return ResponseEntity.ok().body(hoaDon);
     }
+    @GetMapping("/all")
+    @PreAuthorize("hasRole('NHANVIEN')")
+    public ResponseEntity<?> getAllHoaDon(){
+        try {
+            return ResponseEntity.ok().body(hoaDonService.getAllHoaDon());
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('NHANVIEN')")
+    public ResponseEntity<?> findHoaDonById(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok().body(hoaDonService.findHoaDonById(id));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
