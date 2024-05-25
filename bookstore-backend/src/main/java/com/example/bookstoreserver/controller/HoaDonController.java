@@ -48,4 +48,13 @@ public class HoaDonController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @DeleteMapping("{id}")
+    @PreAuthorize("hasRole('NHANVIEN')")
+    public ResponseEntity<?> deleteHoaDon(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok().body(hoaDonService.deleteHoaDon(id));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

@@ -14,4 +14,5 @@ public interface IHoaDonService {
     HoaDon updateHoaDon(Long id, HoaDonDTO hoaDonDTO) throws Exception;
     List<HoaDon> getAllHoaDon();
     String findHoaDonById(Long id) throws DataNotFoundException;
+    String deleteHoaDon(Long id);
 }

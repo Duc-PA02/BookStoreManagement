@@ -1,10 +1,12 @@
 package com.example.bookstoreserver.service.hoadon;
 
 import com.example.bookstoreserver.dtos.*;
+import com.example.bookstoreserver.entity.ChiTietHoaDon;
 import com.example.bookstoreserver.entity.HoaDon;
 import com.example.bookstoreserver.entity.NguoiDung;
 import com.example.bookstoreserver.entity.SanPham;
 import com.example.bookstoreserver.exceptions.DataNotFoundException;
+import com.example.bookstoreserver.repository.ChiTietHoaDonRepository;
 import com.example.bookstoreserver.repository.HoaDonRepository;
 import com.example.bookstoreserver.repository.NguoiDungRepository;
 import com.example.bookstoreserver.repository.SanPhamRepository;
@@ -21,6 +23,7 @@ public class HoaDonService implements IHoaDonService{
     private final HoaDonRepository hoaDonRepository;
     private final NguoiDungRepository nguoiDungRepository;
     private final SanPhamRepository sanPhamRepository;
+    private final ChiTietHoaDonRepository chiTietHoaDonRepository;
     @Override
     public HoaDon createHoaDon(HoaDonDTO hoaDonDTO) throws Exception {
         NguoiDung nguoiDung = nguoiDungRepository.findById(hoaDonDTO.getNguoiDungId()).orElse(null);
@@ -44,6 +47,13 @@ public class HoaDonService implements IHoaDonService{
                     tongTien += sanPham.getGiaBan()*sanPham.getSoLuong();
                     SanPham sp = sanPhamRepository.findById(sanPhamDTO.getSanPhamId()).orElseThrow(()-> new DataNotFoundException("San Pham Khong ton tai"));
                     sp.setHoaDon(hoaDon);
+
+                    //Lưu chi tiết hóa đơn
+                    ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
+                    chiTietHoaDon.setTenSanPham(sanPham.getTenSanPham());
+                    chiTietHoaDon.setSoLuong(sanPham.getSoLuong());
+                    chiTietHoaDon.setHoaDon(hoaDon);
+                    chiTietHoaDonRepository.save(chiTietHoaDon);
                 }
             }
         }
@@ -83,5 +93,20 @@ public class HoaDonService implements IHoaDonService{
         }
         hoaDonRepository.delete(hoaDon);
         return "xoa thanh cong hoa don co id = " + id;
+    }
+
+    @Override
+    public String deleteHoaDon(Long id) {
+        HoaDon hoaDon = hoaDonRepository.findById(id).orElse(null);
+        if (hoaDon != null){
+            for (ChiTietHoaDon chiTietHoaDon : chiTietHoaDonRepository.findAll()){
+                if (chiTietHoaDon.getHoaDon().getId() == id){
+                    chiTietHoaDonRepository.delete(chiTietHoaDon);
+                }
+            }
+            hoaDonRepository.delete(hoaDon);
+            return "xoa thanh cong hoa don co id = " + id;
+        }
+        return null;
     }
 }

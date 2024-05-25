@@ -39,4 +39,8 @@ public class HoaDon extends BaseEntity{
     @OneToMany(mappedBy = "hoaDon")
     @JsonManagedReference
     private List<SanPham> danhSachSanPham;
+
+    @OneToMany(mappedBy = "hoaDon")
+    @JsonManagedReference
+    private List<ChiTietHoaDon> danhSachChiTiet;
 }
