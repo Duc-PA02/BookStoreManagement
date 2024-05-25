@@ -1,9 +1,6 @@
 package com.example.bookstoreserver.service.hoadon;
 
-import com.example.bookstoreserver.dtos.HoaDonDTO;
-import com.example.bookstoreserver.dtos.ThongKeRequest;
-import com.example.bookstoreserver.dtos.TongTienBanDuocDTO;
-import com.example.bookstoreserver.dtos.TongTienBanDuocThangDTO;
+import com.example.bookstoreserver.dtos.*;
 import com.example.bookstoreserver.entity.HoaDon;
 import com.example.bookstoreserver.entity.NguoiDung;
 import com.example.bookstoreserver.entity.SanPham;
@@ -34,15 +31,20 @@ public class HoaDonService implements IHoaDonService{
                 .tenHoaDon(hoaDonDTO.getTenHoaDon())
                 .ngayTao(LocalDate.now())
                 .loaiThanhToan(hoaDonDTO.getLoaiThanhToan())
-                .trangThai(false)
+                .trangThai(true)
                 .nguoiDung(nguoiDung)
                 .build();
+        hoaDonRepository.save(hoaDon);
         double tongTien = 0;
         List<SanPham> sanPhams = new ArrayList<>();
         for (SanPham sanPham : sanPhamRepository.findAll()){
-            if (hoaDonDTO.getSanPhamId() == sanPham.getId()){
-                sanPhams.add(sanPham);
-                tongTien += sanPham.getGiaBan();
+            for (ListSanPhamDTO sanPhamDTO : hoaDonDTO.getListSanPhamDTOS()){
+                if (sanPhamDTO.getSanPhamId() == sanPham.getId()){
+                    sanPhams.add(sanPham);
+                    tongTien += sanPham.getGiaBan()*sanPham.getSoLuong();
+                    SanPham sp = sanPhamRepository.findById(sanPhamDTO.getSanPhamId()).orElseThrow(()-> new DataNotFoundException("San Pham Khong ton tai"));
+                    sp.setHoaDon(hoaDon);
+                }
             }
         }
         hoaDon.setDanhSachSanPham(sanPhams);

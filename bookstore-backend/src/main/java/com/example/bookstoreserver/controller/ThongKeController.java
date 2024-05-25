@@ -48,4 +48,10 @@ public class ThongKeController {
         List<ThongKeHoaDonTheoNamDTO> thongKeList = thongKeService.thongKeHoaDonTheoNam();
         return ResponseEntity.ok(thongKeList);
     }
+    @GetMapping("/loinhuan")
+    @PreAuthorize("hasRole('QUANLY')")
+    public List<Map<LocalDate, Double>> thongKeLoiNhuanTheoNgay(){
+        List<Map<LocalDate, Double>> resultList = thongKeService.loiNhuanTheoNgay();
+        return resultList;
+    }
 }

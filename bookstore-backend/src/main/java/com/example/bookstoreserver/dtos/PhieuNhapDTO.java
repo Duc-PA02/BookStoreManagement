@@ -18,8 +18,6 @@ public class PhieuNhapDTO {
     private int soLuong;
     @JsonProperty("gia_nhap")
     private double giaNhap;
-    @JsonProperty("ngay_nhap")
-    private LocalDate ngayNhap;
     @JsonProperty("nguoidung_id")
     private Long nguoiDungId;
     @JsonProperty("nhacungcap_id")

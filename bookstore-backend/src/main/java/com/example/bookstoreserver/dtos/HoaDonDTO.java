@@ -20,10 +20,9 @@ public class HoaDonDTO {
     private String tenHoaDon;
     @JsonProperty("loai_thanh_toan")
     private String loaiThanhToan;
-    @JsonProperty("sanpham_id")
-    private Long sanPhamId;
     @JsonProperty("trang_thai")
     private Boolean trangThai; //thuộc về admin
     @JsonProperty("nguoidung_id")
     private Long nguoiDungId;
+    private List<ListSanPhamDTO> listSanPhamDTOS;
 }

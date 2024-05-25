@@ -16,4 +16,5 @@ public interface SanPhamRepository extends JpaRepository<SanPham, Long> {
             "GROUP BY sp " +
             "HAVING COUNT(DISTINCT tc.tenTheLoai) = :soLuongTieuChi")
     List<SanPham> timSanPhamTheoTieuChiPhanLoai(List<String> danhSachTenTheLoai, long soLuongTieuChi);
+    SanPham findSanPhamsByTenSanPham(String tenSanPham);
 }

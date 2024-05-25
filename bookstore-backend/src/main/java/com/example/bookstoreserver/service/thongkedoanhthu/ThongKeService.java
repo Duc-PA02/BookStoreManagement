@@ -4,12 +4,17 @@ import com.example.bookstoreserver.dtos.ThongKeHoaDonTheoNamDTO;
 import com.example.bookstoreserver.dtos.ThongKeHoaDonTheoNgay;
 import com.example.bookstoreserver.dtos.ThongKeHoaDonTheoQuyDTO;
 import com.example.bookstoreserver.dtos.ThongKeHoaDonTheoThangDTO;
+import com.example.bookstoreserver.entity.HoaDon;
+import com.example.bookstoreserver.entity.PhieuNhap;
+import com.example.bookstoreserver.entity.SanPham;
 import com.example.bookstoreserver.repository.HoaDonRepository;
 import com.example.bookstoreserver.repository.PhieuNhapRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -50,5 +55,24 @@ public class ThongKeService implements IThongKeService{
         return soLieuThongKe.stream()
                 .map(record -> new ThongKeHoaDonTheoNamDTO((int) record[0], ((Number) record[1]).doubleValue()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Map<LocalDate, Double>> loiNhuanTheoNgay() {
+        List<Map<LocalDate, Double>> resultList = new ArrayList<>();
+        List<HoaDon> hoaDonList = hoaDonRepository.findAll();
+        Map<LocalDate, Double> map = new HashMap<>();
+        double loiNhuan = 0;
+        for (HoaDon hoaDon : hoaDonList){
+            for (SanPham sanPham : hoaDon.getDanhSachSanPham()){
+                if (sanPham.getTenSanPham().equals(phieuNhapRepository.findPhieuNhapByTenSanPham(sanPham.getTenSanPham()))){
+                    PhieuNhap phieuNhap = phieuNhapRepository.findPhieuNhapByTenSanPham(sanPham.getTenSanPham());
+                    loiNhuan += sanPham.getGiaBan()*sanPham.getSoLuong() - phieuNhap.getGiaNhap()*sanPham.getSoLuong();
+                }
+            }
+            map.put(hoaDon.getNgayTao(), loiNhuan);
+        }
+        resultList.add(map);
+        return resultList;
     }
 }

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PhieuNhapRepository extends JpaRepository<PhieuNhap, Long> {
+    PhieuNhap findPhieuNhapByTenSanPham(String tenSanPham);
 }

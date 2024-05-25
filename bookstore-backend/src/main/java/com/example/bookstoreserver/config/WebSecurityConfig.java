@@ -42,9 +42,9 @@ public class WebSecurityConfig {
 
 
                             .requestMatchers(HttpMethod.GET, "/sanpham/**").permitAll()
-                            .requestMatchers(HttpMethod.POST, "sanpham", "sanpham/tim-theo-tieu-chi").hasRole(Role.QUANLY)
-                            .requestMatchers(HttpMethod.PUT,"sanpham").hasRole(Role.QUANLY)
-                            .requestMatchers(HttpMethod.DELETE,"sanpham").hasRole(Role.QUANLY)
+                            .requestMatchers(HttpMethod.POST, "sanpham", "sanpham/tim-theo-tieu-chi").hasAnyRole(Role.QUANLY,Role.NHANVIEN)
+                            .requestMatchers(HttpMethod.PUT,"sanpham").hasAnyRole(Role.QUANLY,Role.NHANVIEN)
+                            .requestMatchers(HttpMethod.DELETE,"sanpham").hasAnyRole(Role.QUANLY,Role.NHANVIEN)
 
 
                             .anyRequest().authenticated();

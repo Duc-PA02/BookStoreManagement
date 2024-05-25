@@ -11,6 +11,7 @@ import com.example.bookstoreserver.repository.PhieuNhapRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,7 @@ public class PhieuNhapService implements IPhieuNhapService{
         PhieuNhap phieuNhap = PhieuNhap.builder()
                 .tenSanPham(phieuNhapDTO.getTenSanPham())
                 .giaNhap(phieuNhapDTO.getGiaNhap())
-                .ngayNhap(phieuNhapDTO.getNgayNhap())
+                .ngayNhap(LocalDate.now())
                 .soLuong(phieuNhapDTO.getSoLuong())
                 .nguoiDung(nguoiDung)
                 .nhaCungCap(nhaCungCap)

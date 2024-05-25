@@ -26,10 +26,6 @@ public class SanPhamDTO {
     private String moTa;
     @JsonProperty("img_hero")
     private String imgHero;
-    @JsonProperty("ngay_tao")
-    private LocalDate ngayTao;
-    @JsonProperty("ngay_cap_nhat")
-    private LocalDate ngayCapNhat;
     @JsonProperty("hoadon_id")
     private Long hoaDonId;
     @JsonProperty("danhmucsp_id")

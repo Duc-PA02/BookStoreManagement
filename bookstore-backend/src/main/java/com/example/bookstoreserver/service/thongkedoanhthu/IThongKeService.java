@@ -14,4 +14,5 @@ public interface IThongKeService {
     List<ThongKeHoaDonTheoThangDTO> thongKeHoaDonTheoThang(int year);
     List<ThongKeHoaDonTheoQuyDTO> thongKeHoaDonTheoQuy(int year);
     List<ThongKeHoaDonTheoNamDTO> thongKeHoaDonTheoNam();
+    List<Map<LocalDate, Double>> loiNhuanTheoNgay();
 }

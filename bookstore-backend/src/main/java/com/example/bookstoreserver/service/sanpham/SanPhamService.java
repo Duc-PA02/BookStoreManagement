@@ -20,6 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -44,8 +45,8 @@ public class SanPhamService implements ISanPhamService{
                 .imgHero(sanPhamDTO.getImgHero())
                 .hoaDon(null)
                 .danhMucSanPham(existDMSP)
-                .ngayTao(sanPhamDTO.getNgayTao())
-                .ngayCapNhat(sanPhamDTO.getNgayCapNhat())
+                .ngayTao(LocalDate.now())
+                .ngayCapNhat(LocalDate.now())
                 .build();
         return sanPhamRepository.save(sanPham);
     }
@@ -64,8 +65,7 @@ public class SanPhamService implements ISanPhamService{
             existSanPham.setImgHero(sanPhamDTO.getImgHero());
             existSanPham.setHoaDon(hoaDon);
             existSanPham.setDanhMucSanPham(danhMucSanPham);
-            existSanPham.setNgayTao(sanPhamDTO.getNgayTao());
-            existSanPham.setNgayCapNhat(sanPhamDTO.getNgayCapNhat());
+            existSanPham.setNgayCapNhat(LocalDate.now());
         }
         return sanPhamRepository.save(existSanPham);
     }
