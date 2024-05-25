@@ -2,13 +2,11 @@ package com.example.bookstoreserver.service.cuahang;
 
 import com.example.bookstoreserver.dtos.CuaHangDTO;
 import com.example.bookstoreserver.entity.CuaHang;
-import com.example.bookstoreserver.entity.DanhMucSanPham;
 import com.example.bookstoreserver.entity.KhoHang;
 import com.example.bookstoreserver.exceptions.DataNotFoundException;
 import com.example.bookstoreserver.repository.CuaHangRepository;
 import com.example.bookstoreserver.repository.KhoHangRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service

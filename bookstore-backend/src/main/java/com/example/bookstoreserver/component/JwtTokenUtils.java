@@ -28,6 +28,7 @@ public class JwtTokenUtils {
     public String generateToken(NguoiDung user) throws Exception{
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", user.getEmail());
+        claims.put(("userId"), user.getId());
         try {
             String token = Jwts.builder()
                     .setClaims(claims)
