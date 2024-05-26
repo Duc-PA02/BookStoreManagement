@@ -12,4 +12,6 @@ import lombok.*;
 public class ListSanPhamDTO {
     @JsonProperty("sanpham_id")
     private Long sanPhamId;
+    @JsonProperty("so_luong")
+    private int soLuong;
 }

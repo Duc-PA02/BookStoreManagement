@@ -43,10 +43,15 @@ public class HoaDonService implements IHoaDonService{
         for (SanPham sanPham : sanPhamRepository.findAll()){
             for (ListSanPhamDTO sanPhamDTO : hoaDonDTO.getListSanPhamDTOS()){
                 if (sanPhamDTO.getSanPhamId() == sanPham.getId()){
-                    sanPhams.add(sanPham);
-                    tongTien += sanPham.getGiaBan()*sanPham.getSoLuong();
                     SanPham sp = sanPhamRepository.findById(sanPhamDTO.getSanPhamId()).orElseThrow(()-> new DataNotFoundException("San Pham Khong ton tai"));
                     sp.setHoaDon(hoaDon);
+                    sp.setSoLuong(sanPhamDTO.getSoLuong());
+                    sanPhamRepository.save(sp);
+
+                    //Thêm sản phẩm vào tính tiền
+                    sanPhams.add(sanPham);
+                    tongTien += sanPham.getGiaBan()*sanPham.getSoLuong();
+
 
                     //Lưu chi tiết hóa đơn
                     ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
